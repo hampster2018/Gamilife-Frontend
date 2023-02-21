@@ -54,3 +54,22 @@ Future<bool> logout() async {
     throw Exception('Different Repsonse code: ${response.statusCode}');
   }
 }
+
+Future<bool> signUp(String username, String password) async {
+  Map<String, String> sendHeader = {
+    'Content-Type': 'application/json; charset=UTF-8',
+    'Cookie': cookie,
+  };
+
+  final response = await http.post(
+      Uri.parse(
+          'http://10.0.2.2:5000/signup?username=$username&password=$password'),
+      headers: sendHeader);
+
+  if (response.statusCode == 201) {
+    isLoggedIn = false;
+    return true;
+  } else {
+    throw Exception('Different Repsonse code: ${response.statusCode}');
+  }
+}

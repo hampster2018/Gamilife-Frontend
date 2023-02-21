@@ -6,15 +6,15 @@ import '../../User/functions.dart';
 
 import 'dart:developer';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<Home> createState() => _Home();
+  State<SignUp> createState() => _SignUp();
 }
 
-class _Home extends State<Home> {
-  Text text = Text("Welcome $user");
+class _SignUp extends State<SignUp> {
+  Text text = const Text("Sign in");
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _Home extends State<Home> {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           text,
           CupertinoButton(
-              child: const Text("Logout"),
+              child: const Text("Sign Up"),
               onPressed: () async {
                 updateLogout();
               })
@@ -32,7 +32,7 @@ class _Home extends State<Home> {
     );
   }
 
-  Future<void> updateLogout() async {
+  Future<void> signUpUser() async {
     bool success = await logout();
     setState(() {
       if (success == true) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:frontend/Screens/SignUpPage/screen.dart';
 import 'dart:developer';
 
 import '../../Globals/user.dart';
@@ -13,7 +14,10 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignIn extends State<SignIn> {
-  Text text = const Text("Please Sign in");
+  Text text = const Text("Sign Up");
+
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +25,15 @@ class _SignIn extends State<SignIn> {
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           text,
-          CupertinoButton(
-              child: const Text("Login"),
-              onPressed: () async {
-                updateLogin();
-              }),
-          CupertinoButton(
-              child: const Text("Logout"),
-              onPressed: () async {
-                updateLogout();
-              })
+          CupertinoTextField(controller: username),
+          CupertinoTextField(controller: password)
+          CupertinoButton(child: Text("Make new account"), onPressed: {u})
         ]),
       ),
     );
   }
 
-  Future<void> updateLogin() async {
+  Future<void> SignUp() async {
     if (isLoggedIn == true) {
       setState(() {
         text = const Text("User is already signed in");
@@ -44,21 +41,9 @@ class _SignIn extends State<SignIn> {
     } else {
       user = await login("root", "password");
       setState(() {
-        text = Text(user.username);
+        Navigator.pushNamed(context, '/Home');
       });
-      log(user.username);
     }
-  }
-
-  Future<void> updateLogout() async {
-    bool success = await logout();
-    setState(() {
-      if (success == true) {
-        text = const Text("Successfully Signed out");
-      } else {
-        text = const Text("User wasn't signed in");
-      }
-    });
-    log("Logout success: $success");
+    log('$user signed in');
   }
 }
